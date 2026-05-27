@@ -3,17 +3,17 @@
 โปรเจกต์นี้คือระบบอัตโนมัติ (Automation) สำหรับทีม Security Operations Center (SOC) เพื่อลดระยะเวลาในการวิเคราะห์เบื้องต้น (Triage) และแก้ปัญหา Alert Fatigue ระบบจะคอยดักจับ Ticket ใหม่ที่เข้ามาใน Jira ดึง IP Address สาธารณะออกมา และตรวจสอบประวัติภัยคุกคามจาก 3rd Party Threat Intelligence ชั้นนำ ก่อนจะสรุปผลและคอมเมนต์กลับเข้าไปใน Ticket ทันที
 
 ## 🛠️ แพลตฟอร์มวิเคราะห์ภัยคุกคามที่ใช้ (Threat Intelligence)
-VirusTotal: ตรวจสอบ IP ว่าถูกสแกนพบเป็นภัยคุกคามจาก Antivirus Engines กี่แห่ง พร้อมดึงข้อมูลเจ้าของโครงข่าย (ASN) และคะแนน Reputation
-AbuseIPDB: ตรวจสอบประวัติพฤติกรรมไม่พึงประสงค์ (เช่น สแกนพอร์ต, โจมตี) ระบุระดับความเสี่ยง (%) และดึงสถานะ Whitelist เพื่อป้องกัน FalsePositive
-AlienVault OTX: ตรวจสอบความเชื่อมโยงของ IP กับแคมเปญการโจมตี (Pulse) พร้อมระบุชื่อแคมเปญล่าสุดและข้อมูล Geolocation
+* **VirusTotal:** ตรวจสอบ IP ว่าถูกสแกนพบเป็นภัยคุกคามจาก Antivirus Engines กี่แห่ง พร้อมดึงข้อมูลเจ้าของโครงข่าย (ASN) และคะแนน Reputation
+* **AbuseIPDB:** ตรวจสอบประวัติพฤติกรรมไม่พึงประสงค์ (เช่น สแกนพอร์ต, โจมตี) ระบุระดับความเสี่ยง (%) และดึงสถานะ Whitelist เพื่อป้องกัน False Positive
+* **AlienVault OTX:** ตรวจสอบความเชื่อมโยงของ IP กับแคมเปญการโจมตี (Pulse) พร้อมระบุชื่อแคมเปญล่าสุดและข้อมูล Geolocation
 
 ## 💻 เครื่องมือที่ใช้พัฒนา (Development Stack)
-Python 3.x: ภาษาหลักที่ใช้เขียน Logic และเชื่อมต่อ API
-FastAPI & Uvicorn: สร้าง Web Server และ API Endpoint เพื่อรอรับ Webhook จาก Jira
-ngrok: เครื่องมือสร้าง Tunnel เพื่อเปิด Localhost ออกสู่อินเทอร์เน็ตสำหรับการทำ Webhook
-Jira Python Library: ใช้จัดการและพ่นคอมเมนต์กลับเข้าไปใน Ticket
+* **Python 3.x:** ภาษาหลักที่ใช้เขียน Logic และเชื่อมต่อ API
+* **FastAPI & Uvicorn:** สร้าง Web Server และ API Endpoint เพื่อรอรับ Webhook จาก Jira
+* **ngrok:** เครื่องมือสร้าง Tunnel เพื่อเปิด Localhost ออกสู่อินเทอร์เน็ตสำหรับการทำ Webhook
+* **Jira Python Library:** ใช้จัดการและพ่นคอมเมนต์กลับเข้าไปใน Ticket
 
---------------------------
+---
 
 ## ⚙️ ขั้นตอนการติดตั้ง (Installation)
 
@@ -33,7 +33,7 @@ Jira Python Library: ใช้จัดการและพ่นคอมเ�
 * `AB_API_KEY`: กุญแจจาก AbuseIPDB
 * `ALIENVAULT_API_KEY`: กุญแจจาก AlienVault OTX
 
---------------------------
+---
 
 ## 🚀 วิธีการรันโปรเจกต์ (How to Run)
 
@@ -53,7 +53,7 @@ Jira Python Library: ใช้จัดการและพ่นคอมเ�
 `ngrok http 8000`
 *(ก๊อปปี้ URL ที่ขึ้นต้นด้วย `https://...ngrok-free.app` ไปใช้ในขั้นตอนถัดไป)*
 
---------------------------
+---
 
 ## 🔗 การตั้งค่า Jira Webhook
 1. เข้าไปที่ **Project Settings** ใน Jira
@@ -65,8 +65,9 @@ Jira Python Library: ใช้จัดการและพ่นคอมเ�
 7. **Webhook body:** เลือก `Issue data (JSON)`
 8. กด Save และ Turn on rule
 
---------------------------
+---
 
 ## 📌 ข้อจำกัดที่ควรทราบ (Known Limitations)
 * **Jira Free Plan:** หากใช้ Jira แพ็กเกจฟรี จะมีโควต้าการทำงานของ Automation อยู่ที่ 100 ครั้ง/เดือน หากโควต้าหมด Webhook จะไม่ถูกส่ง (แนะนำให้นำไป Implement บน Jira ระดับ Production ขององค์กร)
+* **การแสดงผลรูปธงชาติ (OS Emojis):** ระบบปฏิบัติการ Windows ไม่รองรับการแสดงผล Color Emoji รูปธงชาติ หากเปิดผ่านเบราว์เซอร์บน Windows อาจเห็นเป็นรูปหมุด (📍) หรือตัวอักษรย่อประเทศแทน แต่จะแสดงผลเป็นรูปธงชาติปกติเมื่อเปิดผ่าน macOS, iOS หรือ Androidomation อยู่ที่ 100 ครั้ง/เดือน หากโควต้าหมด Webhook จะไม่ถูกส่ง (แนะนำให้นำไป Implement บน Jira ระดับ Production ขององค์กร)
 * **การแสดงผลรูปธงชาติ (OS Emojis):** ระบบปฏิบัติการ Windows ไม่รองรับการแสดงผล Color Emoji รูปธงชาติ หากเปิดผ่านเบราว์เซอร์บน Windows อาจเห็นเป็นรูปตัวอักษรย่อประเทศแทน แต่จะแสดงผลเป็นรูปธงชาติปกติเมื่อเปิดผ่าน macOS, iOS หรือ Android
