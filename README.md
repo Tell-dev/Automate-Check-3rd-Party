@@ -19,7 +19,7 @@
 
 **1. Clone โค้ดลงเครื่อง**
 เปิด Terminal แล้วรันคำสั่ง:
-`git clone <ลิงก์_repository_ของคุณ>`
+`git clone https://github.com/Tell-dev/Automate-Check-3rd-Party`
 `cd <ชื่อโฟลเดอร์_โปรเจกต์>`
 
 **2. ติดตั้งไลบรารีที่จำเป็น (Dependencies)**
